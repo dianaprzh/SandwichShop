@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SandwichShop</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="textView_welcomeMsg">Welcome! Here you can customize your sandwich.</string>
+    <string name="button_enter">Enter</string>
+    <string name="textView_sandwichShop">Sandwich Shop</string>
+    <string name="textView_chooseBread">Please, choose your bread:</string>
+    <string name="radioButton_wheat">Wheat</string>
+    <string name="radioButton_white">White</string>
+    <string name="radioButton_rye">Rye</string>
+    <string name="textView_chooseToppings">Now, choose some toppings:</string>
+    <string name="checkBox_mayo">Mayonnaise</string>
+    <string name="checkBox_ketchup">Ketchup</string>
+    <string name="checkBox_bbq">Bbq</string>
+    <string name="checkBox_bacon">Bacon</string>
+    <string name="checkBox_extraCheese">Extra cheese</string>
+    <string name="checkBox_garlic_sauce">Garlic Sauce</string>
+    <string name="checkButton_olives">Olives</string>
+    <string name="checkBox_pepper">Pepper</string>
+    <string name="button_placeOrder">Place Order</string>
+    <string name="textView_confirmationTitle">Your order has been successfully placed</string>
+    <string name="textView_summary_order">summary order</string>
+
+</resources>
