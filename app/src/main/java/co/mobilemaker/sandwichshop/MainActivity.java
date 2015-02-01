@@ -14,20 +14,18 @@ public class MainActivity extends ActionBarActivity {
 
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
 
+    Button mSingleButton;
+    Button mStartButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(LOG_TAG, "Main activity created.");
-        prepareEnterButton();
-    }
-
-    private void prepareEnterButton() {
-        Button mEnterButton = (Button)findViewById(R.id.button_enter);
-        mEnterButton.setOnClickListener(new View.OnClickListener() {
+        mStartButton = (Button)findViewById(R.id.button_start);
+        mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, OrderFormActivity.class);
+                Intent intent = new Intent(MainActivity.this, CountSelectionActivity.class);
                 startActivity(intent);
             }
         });

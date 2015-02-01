@@ -64,7 +64,7 @@
 
         <CheckBox
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:text="@string/checkBox_mayo"
             android:id="@+id/checkBox_mayo"
             android:checked="false"
@@ -134,7 +134,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_placeOrder"
+        android:text="@string/button_continue"
         android:id="@+id/button_placeOrder"
         android:layout_gravity="center_horizontal"/>
 

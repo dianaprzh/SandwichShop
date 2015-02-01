@@ -20,7 +20,7 @@
         android:textSize="20dp" />
 
     <RadioGroup
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
@@ -123,8 +123,16 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/button_continue"
+        android:id="@+id/button_continue"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/button_placeOrder"
         android:id="@+id/button_placeOrder"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:enabled="false"/>
 
 </LinearLayout>

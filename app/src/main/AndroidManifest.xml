@@ -17,8 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".OrderFormActivity"
-            android:label="Order form activity" />
+            android:label="Order form activity"
+            android:launchMode="singleTop"/>
         <activity android:name=".ConfirmationActivity"
+            android:label="Confirmation activity" />
+        <activity android:name=".CountSelectionActivity"
             android:label="Confirmation activity" />
     </application>
 

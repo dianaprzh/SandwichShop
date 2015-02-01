@@ -2,6 +2,8 @@ package co.mobilemaker.sandwichshop;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,43 +20,48 @@ import java.util.ArrayList;
 public class OrderFormActivity extends ActionBarActivity {
 
     private final static String LOG_TAG = OrderFormActivity.class.getSimpleName();
-    Button mPlaceOrderButton;
-    RadioGroup mRadioGroupBreads;
-    RadioButton mRadioButtonWheat;
-    RadioButton mRadioButtonWhite;
-    RadioButton mRadioButtonRye;
-    CheckBox mCheckBoxMayo;
-    CheckBox mCheckBoxKetchup;
-    CheckBox mCheckBoxBbq;
-    CheckBox mCheckBoxBacon;
-    CheckBox mCheckBoxExtraCheese;
-    CheckBox mCheckBoxGarlicSauce;
-    CheckBox mCheckBoxOlives;
-    CheckBox mCheckBoxPepper;
-    String bread;
-    ArrayList<String> results = new ArrayList<>();
+    final static String SANDWICH_LIST = "SANDWICH_LIST";
+
+    private Button mContinueButton;
+    private Button mPlaceOrderButton;
+    private RadioGroup mRadioGroupBreads;
+    private RadioButton mRadioButtonWheat;
+    private RadioButton mRadioButtonWhite;
+    private RadioButton mRadioButtonRye;
+    private CheckBox mCheckBoxMayo;
+    private CheckBox mCheckBoxKetchup;
+    private CheckBox mCheckBoxBbq;
+    private CheckBox mCheckBoxBacon;
+    private CheckBox mCheckBoxExtraCheese;
+    private CheckBox mCheckBoxGarlicSauce;
+    private CheckBox mCheckBoxOlives;
+    private CheckBox mCheckBoxPepper;
+    private String bread;
+    private ArrayList<String> results = new ArrayList<>();
+    private int numSandw;
+    ArrayList<Sandwich> sandwiches;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orderform);
         Log.d(LOG_TAG, "Order form activity created.");
-        preparePlaceOrderButton();
+        numSandw = getIntent().getIntExtra(CountSelectionActivity.NUM_SANDW, 1);
+        if(savedInstanceState != null){
+            sandwiches = savedInstanceState.getParcelableArrayList(SANDWICH_LIST);
+        }else {
+            sandwiches = new ArrayList<Sandwich>();
+        }
+        prepareButtons();
     }
 
     private void prepareSandwichOptions() {
-        mRadioGroupBreads = (RadioGroup)findViewById(R.id.radioGroup_breads);
-        mRadioButtonWheat = (RadioButton)findViewById(R.id.radioButton_wheat);
-        mRadioButtonWhite = (RadioButton)findViewById(R.id.radioButton_white);
-        mRadioButtonRye = (RadioButton)findViewById(R.id.radioButton_rye);
-        if(mRadioGroupBreads.getCheckedRadioButtonId() != -1) {
-            if (mRadioButtonWheat.isChecked())
-                bread = "Wheat";
-            else if (mRadioButtonWhite.isChecked())
-                bread = "White";
-            else
-                bread = "Rye";
-        }
+        prepareBreadOptions();
+        prepareToppingsOptions();
+    }
+
+
+    private void prepareToppingsOptions() {
         mCheckBoxMayo = (CheckBox)findViewById(R.id.checkBox_mayo);
         mCheckBoxKetchup = (CheckBox)findViewById(R.id.checkBox_ketchup);
         mCheckBoxBbq = (CheckBox)findViewById(R.id.checkBox_bbq);
@@ -80,19 +87,67 @@ public class OrderFormActivity extends ActionBarActivity {
         if(mCheckBoxPepper.isChecked())
             results.add("Pepper");
     }
-    private void preparePlaceOrderButton() {
-        mPlaceOrderButton = (Button)findViewById(R.id.button_placeOrder);
-        mPlaceOrderButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(OrderFormActivity.this, ConfirmationActivity.class);
-                prepareSandwichOptions();
-                results.add(bread);
-                intent.putExtra(Intent.EXTRA_TEXT,results);
-                startActivity(intent);
-            }
-        });
+
+    private void prepareBreadOptions() {
+        mRadioGroupBreads = (RadioGroup)findViewById(R.id.radioGroup_breads);
+        mRadioButtonWheat = (RadioButton)findViewById(R.id.radioButton_wheat);
+        mRadioButtonWhite = (RadioButton)findViewById(R.id.radioButton_white);
+        mRadioButtonRye = (RadioButton)findViewById(R.id.radioButton_rye);
+        if(mRadioGroupBreads.getCheckedRadioButtonId() != -1) {
+            if (mRadioButtonWheat.isChecked())
+                bread = "Wheat";
+            else if (mRadioButtonWhite.isChecked())
+                bread = "White";
+            else
+                bread = "Rye";
+        }
     }
 
+    private void prepareButtons() {
+        mPlaceOrderButton = (Button)findViewById(R.id.button_placeOrder);
+        mContinueButton = (Button)findViewById(R.id.button_continue);
+        if(numSandw == 1){
+            mPlaceOrderButton.setEnabled(true);
+            mContinueButton.setEnabled(false);
+            mPlaceOrderButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    prepareSandwichOptions();
+                    Intent intent = new Intent(OrderFormActivity.this, ConfirmationActivity.class);
+                    intent.putExtra(SANDWICH_LIST, sandwiches);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            mContinueButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    prepareSandwichOptions();
+                    Intent intent = new Intent(v.getContext(), OrderFormActivity.class);
+                    intent.putExtra(SANDWICH_LIST, sandwiches);
+                    intent.putExtra(CountSelectionActivity.NUM_SANDW, numSandw--);
+                    startActivity(intent);
+                }
+            });
+        }
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Sandwich sandwich = new Sandwich();
+        sandwich.setResults(results);
+        sandwiches.add(sandwich);
+        outState.putParcelableArrayList(SANDWICH_LIST, sandwiches);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

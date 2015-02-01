@@ -21,15 +21,21 @@ public class ConfirmationActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
         Log.d(LOG_TAG, "Confirmation activity created.");
-        ArrayList<String> results = getIntent().getStringArrayListExtra(Intent.EXTRA_TEXT);
+        Bundle bundle = getIntent().getExtras();
+        ArrayList<Sandwich> options = bundle.getParcelableArrayList(OrderFormActivity.SANDWICH_LIST);
         TextView textView = (TextView)findViewById(R.id.textView_summary_order);
         StringBuilder summary = new StringBuilder();
-        summary.append("Your sandwich is with " + results.get(results.size()-1) + " bread and the following toppings: ");
-        for (int i = 0; i < results.size() - 1 ; i++){
-            if(i == results.size() - 2)
-                summary.append(results.get(i) + ".");
-            else
-                summary.append(results.get(i) + ", ");
+        for (Sandwich sandwich : options){
+            ArrayList<String> results = sandwich.getResults();
+            summary.append("Sandwich bread: " + results.get(results.size()-1) + "\n");
+            summary.append("Sandwich toppings: \n");
+            for (int i = 0; i < results.size() - 1 ; i++){
+                if(i == results.size() - 2)
+                    summary.append(results.get(i) + ".");
+                else
+                    summary.append(results.get(i) + ", ");
+            }
+            summary.append("\n\n\n");
         }
         textView.setText(summary);
     }

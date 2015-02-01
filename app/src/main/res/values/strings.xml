@@ -5,7 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="textView_welcomeMsg">Welcome! Here you can customize your sandwich.</string>
-    <string name="button_enter">Enter</string>
+    <string name="button_singleSandwich">Single sandwich</string>
     <string name="textView_sandwichShop">Sandwich Shop</string>
     <string name="textView_chooseBread">Please, choose your bread:</string>
     <string name="radioButton_wheat">Wheat</string>
@@ -20,8 +20,11 @@
     <string name="checkBox_garlic_sauce">Garlic Sauce</string>
     <string name="checkButton_olives">Olives</string>
     <string name="checkBox_pepper">Pepper</string>
-    <string name="button_placeOrder">Place Order</string>
+    <string name="button_continue">Continue</string>
     <string name="textView_confirmationTitle">Your order has been successfully placed</string>
     <string name="textView_summary_order">summary order</string>
+    <string name="textView_howmany">How many sandwiches:</string>
+    <string name="button_start">Start</string>
+    <string name="button_placeOrder">Place order</string>
 
 </resources>
