@@ -12,11 +12,12 @@ public class Sandwich implements Parcelable {
 
         ArrayList<String> sandwichOptions;
         public Sandwich(){
-
+            sandwichOptions = new ArrayList<String>();
         }
 
         private Sandwich(Parcel source){
-            sandwichOptions =  source.readArrayList(String.class.getClassLoader());
+            this();
+            source.readStringList(sandwichOptions);
         }
 
         public ArrayList<String> getResults() {
@@ -48,4 +49,6 @@ public class Sandwich implements Parcelable {
                 return new Sandwich[size];
             }
         };
+
+
 }

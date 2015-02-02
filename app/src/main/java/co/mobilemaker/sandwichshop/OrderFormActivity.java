@@ -113,8 +113,9 @@ public class OrderFormActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                     prepareSandwichOptions();
+                    Bundle bundle = setParcelableBundle();
                     Intent intent = new Intent(OrderFormActivity.this, ConfirmationActivity.class);
-                    intent.putExtra(SANDWICH_LIST, sandwiches);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 }
             });
@@ -123,8 +124,9 @@ public class OrderFormActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                     prepareSandwichOptions();
+                    Bundle bundle = setParcelableBundle();
                     Intent intent = new Intent(v.getContext(), OrderFormActivity.class);
-                    intent.putExtra(SANDWICH_LIST, sandwiches);
+                    intent.putExtras(bundle);
                     intent.putExtra(CountSelectionActivity.NUM_SANDW, numSandw--);
                     startActivity(intent);
                 }
@@ -132,12 +134,18 @@ public class OrderFormActivity extends ActionBarActivity {
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    private Bundle setParcelableBundle() {
+        Bundle bundle = new Bundle();
         Sandwich sandwich = new Sandwich();
         sandwich.setResults(results);
         sandwiches.add(sandwich);
+        bundle.putParcelableArrayList(SANDWICH_LIST, sandwiches);
+        return bundle;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(SANDWICH_LIST, sandwiches);
     }
 
