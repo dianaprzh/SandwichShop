@@ -27,7 +27,7 @@ public class ConfirmationActivity extends ActionBarActivity {
         StringBuilder summary = new StringBuilder();
         for (Sandwich sandwich : options){
             ArrayList<String> results = sandwich.getResults();
-            summary.append("Sandwich bread: " + results.get(results.size()-1) + "\n");
+            summary.append("Sandwich bread: \n" + results.get(results.size()-1) + "\n");
             summary.append("Sandwich toppings: \n");
             for (int i = 0; i < results.size() - 1 ; i++){
                 if(i == results.size() - 2)

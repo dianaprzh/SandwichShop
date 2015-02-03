@@ -58,6 +58,7 @@ public class OrderFormActivity extends ActionBarActivity {
     private void prepareSandwichOptions() {
         prepareBreadOptions();
         prepareToppingsOptions();
+        results.add(bread);
     }
 
 
@@ -125,19 +126,25 @@ public class OrderFormActivity extends ActionBarActivity {
                 public void onClick(View v) {
                     prepareSandwichOptions();
                     Bundle bundle = setParcelableBundle();
-                    Intent intent = new Intent(v.getContext(), OrderFormActivity.class);
+                    Intent intent = new Intent(OrderFormActivity.this, OrderFormActivity.class);
                     intent.putExtras(bundle);
+                    numSandw = numSandw - 1;
                     intent.putExtra(CountSelectionActivity.NUM_SANDW, numSandw--);
+                    finish();
                     startActivity(intent);
                 }
             });
         }
     }
 
+
     private Bundle setParcelableBundle() {
         Bundle bundle = new Bundle();
         Sandwich sandwich = new Sandwich();
         sandwich.setResults(results);
+        sandwiches = getIntent().getExtras().getParcelableArrayList(OrderFormActivity.SANDWICH_LIST);
+        if(sandwiches == null)
+            sandwiches = new ArrayList<Sandwich>();
         sandwiches.add(sandwich);
         bundle.putParcelableArrayList(SANDWICH_LIST, sandwiches);
         return bundle;
@@ -146,6 +153,9 @@ public class OrderFormActivity extends ActionBarActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        Sandwich sandwich = new Sandwich();
+        sandwich.setResults(results);
+        sandwiches.add(sandwich);
         outState.putParcelableArrayList(SANDWICH_LIST, sandwiches);
     }
 
