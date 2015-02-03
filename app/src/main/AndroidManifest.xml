@@ -20,7 +20,8 @@
             android:label="Order form activity"
             android:launchMode="singleTop"/>
         <activity android:name=".ConfirmationActivity"
-            android:label="Confirmation activity" />
+            android:label="Confirmation activity"
+            android:theme="@style/ConfirmationTheme"/>
         <activity android:name=".CountSelectionActivity"
             android:label="Confirmation activity" />
     </application>
